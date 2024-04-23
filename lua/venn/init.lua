@@ -6,8 +6,9 @@ if vim.g.venn_debug then
 end
 
 local arrow_chars = {
-  up = '▲', down = '▼', left = '◄', right = '►',
+  up = '▲', down = '▼', left = '◀', right = '▶',
 }
+
 
 local charset = {
   -- [ up down left right ] = char
@@ -129,7 +130,7 @@ function M.log(str)
 end
 
 function M.draw_box(style)
-  -- line is 1 indexed, col is 0 indexed 
+  -- line is 1 indexed, col is 0 indexed
   local _,slnum,sbyte,vscol = unpack(vim.fn.getpos("'<"))
   local _,elnum,ebyte,vecol = unpack(vim.fn.getpos("'>"))
 
@@ -296,7 +297,7 @@ function M.draw_box(style)
 
     local line = ''
     for i=scol,ecol do
-      local c 
+      local c
       if i == ccol then
         if i == scol then
           c = head or arrow_chars.left
@@ -391,7 +392,7 @@ function M.draw_box(style)
   vim.cmd([[exe "norm! \<C-V>]] .. hori_mvt .. vert_mvt .. [[\<esc>"]])
   M.log("restore cursor position")
 
-  local line = vim.api.nvim_buf_get_lines(0, clnum-1, clnum, true)[1] 
+  local line = vim.api.nvim_buf_get_lines(0, clnum-1, clnum, true)[1]
   local sbyte = M.get_bytes(line, ccol)
   vim.api.nvim_win_set_cursor(0, {clnum, sbyte})
 
@@ -420,7 +421,7 @@ function M.get_bytes(line, col)
 end
 
 function M.draw_box_over(style)
-  -- line is 1 indexed, col is 0 indexed 
+  -- line is 1 indexed, col is 0 indexed
   local _,slnum,sbyte,vscol = unpack(vim.fn.getpos("'<"))
   local _,elnum,ebyte,vecol = unpack(vim.fn.getpos("'>"))
 
@@ -507,7 +508,7 @@ function M.draw_box_over(style)
 
       local pold_opts = M.parse(pold) or { " ", " ", " ", " " }
 
-      local c 
+      local c
       if i == ccol then
         if i == scol then
           c = arrow_chars.left
@@ -658,14 +659,14 @@ function M.draw_box_over(style)
   vim.cmd([[exe "norm! \<C-V>]] .. hori_mvt .. vert_mvt .. [[\<esc>"]])
   M.log("restore cursor position")
 
-  local line = vim.api.nvim_buf_get_lines(0, clnum-1, clnum, true)[1] 
+  local line = vim.api.nvim_buf_get_lines(0, clnum-1, clnum, true)[1]
   local sbyte = M.get_bytes(line, ccol)
   vim.api.nvim_win_set_cursor(0, {clnum, sbyte})
 
 end
 
 function M.fill_box()
-  -- line is 1 indexed, col is 0 indexed 
+  -- line is 1 indexed, col is 0 indexed
   local _,slnum,sbyte,vscol = unpack(vim.fn.getpos("'<"))
   local _,elnum,ebyte,vecol = unpack(vim.fn.getpos("'>"))
 
